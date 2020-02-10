@@ -40,7 +40,15 @@ class CrosswordFormsView extends connect(store)(LitElement) {
   render() {
     return html`
       <style>
+        .cw-forms-wrapper {
+          display: flex;
+          flex-direction: column;
+          height: 80%;
+          justify-content: space-around;
+        }
+
         h2 {
+          text-align: center;
           color: var(--dark-color);
         }
 
@@ -58,54 +66,78 @@ class CrosswordFormsView extends connect(store)(LitElement) {
         }
 
         .words-list {
-          min-height: 3rem;
+          min-height: 5rem;
           background-color: var(--grey-background);
-          padding: 1rem;
-          margin: 1rem 0;
+          padding: 0.5rem;
+        }
+
+        .word-item {
+          display: inline-block;
+          line-height: 1.6rem;
+          padding: 0.1rem 0.3rem;
+          margin-right: 0.4rem;
+          margin-bottom: 0.5rem;
+          border-radius: 0.3rem;
+          background-color: var(--base-color);
+          color: var(--blue-color);
+        }
+
+        .radio-buttons {
+          text-align: center;
+        }
+
+        .generate-button {
+          text-align: center;
+        }
+
+        vaadin-button:hover {
+          cursor: pointer;
         }
       </style>
-      <h3>Current word selection</h3>
-      <div class="input-layout" @keyup="${this.shortcutListener}">
-        <vaadin-text-field
-          placeholder="Something"
-          value="${this.text}"
-          @change="${this.updateText}"
-        ></vaadin-text-field>
-        <vaadin-button theme="primary" @click="${this.addWord}">
-          Add
-        </vaadin-button>
-      </div>
+      <div class="cw-forms-wrapper">
+        <h2>Add Words Here</h2>
+        <div class="input-layout" @keyup="${this.shortcutListener}">
+          <vaadin-text-field
+            placeholder="Something"
+            value="${this.text}"
+            @change="${this.updateText}"
+          ></vaadin-text-field>
+          <vaadin-button theme="primary" @click="${this.addWord}">
+            Add
+          </vaadin-button>
+        </div>
 
-      <div class="words-list">
-        ${this.words.map(
-          word => html`
-            <div class="word-item">
-              <span>${word.text}</span>
-            </div>
-          `
-        )}
-      </div>
-
-      <div class="radio-buttons">
-        <vaadin-radio-group
-          class="visibility-filters"
-          value="${this.filter}"
-          @value-changed="${this.filterChanged}"
-        >
-          ${Object.values(VisualInfoOptions).map(
-            filter => html`
-              <vaadin-radio-button value="${filter}"
-                >${filter}</vaadin-radio-button
-              >
+        <div class="words-list">
+          ${this.words.map(
+            word => html`
+              <div class="word-item">
+                ${word.text}
+              </div>
             `
           )}
-        </vaadin-radio-group>
-      </div>
+        </div>
 
-      <div class="generate-button">
-        <vaadin-button @click="${this.generateCrossword}">
-          Generate Crossword
-        </vaadin-button>
+        <div class="radio-buttons">
+          <vaadin-radio-group
+            class="visibility-filters"
+            value="${this.filter}"
+            @value-changed="${this.filterChanged}"
+          >
+            ${Object.values(VisualInfoOptions).map(
+              filter => html`
+                <vaadin-radio-button value="${filter}"
+                  >${filter}</vaadin-radio-button
+                >
+              `
+            )}
+          </vaadin-radio-group>
+        </div>
+
+        <div class="generate-button">
+          <vaadin-button @click="${this.generateCrossword}">
+            Generate Crossword
+          </vaadin-button>
+        </div>
       </div>
     `;
   }
@@ -117,11 +149,7 @@ class CrosswordFormsView extends connect(store)(LitElement) {
 
     const matrixSize = 30;
     const demoPlayground = [...Array(matrixSize)].map((x, j) => {
-      return Array(matrixSize).fill(html`
-        <div class="crossword-box">
-          A
-        </div>
-      `);
+      return Array(matrixSize).fill(0);
     });
     console.log(demoPlayground);
 

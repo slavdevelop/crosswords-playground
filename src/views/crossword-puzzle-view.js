@@ -36,12 +36,11 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
     return html`
       <style>
         .crossword-puzzle-wrapper {
-          width: 40rem;
-          height: 40rem;
+          width: 35rem;
+          height: 35rem;
+          margin: auto;
           background: var(--grey-background);
           padding: 1rem;
-          margin: 2rem;
-          float: right;
         }
 
         .crossword-puzzle {
@@ -63,7 +62,6 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
           background-color: #fff;
         }
       </style>
-      <span @click="${() => this.renderGrid()}">Click me!</span>
       <div class="crossword-puzzle-wrapper">
         <div class="crossword-puzzle"></div>
       </div>

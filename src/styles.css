@@ -48,34 +48,43 @@ nav {
 }
 
 nav {
-  height: 3em;
+  height: 3rem;
 }
 
 header {
+  position: relative;
   text-align: center;
   background: var(--dark-color);
   color: var(--base-color);
 }
 
-header > h1 {
-  height: 5rem;
-  line-height: 5rem;
-}
-
 main {
-  width: 100%;
+  width: 95%;
+  margin: auto;
+  height: calc(100vh - 6rem - 32px);
   display: flex;
   justify-content: space-between;
 }
 
 main > crossword-forms-view {
-  flex: 1;
+  flex: 2;
 }
 
 main > crossword-puzzle-view {
-  flex: 2;
+  flex: 3;
+  align-self: center;
 }
 
 .heading-primary {
   color: var(--blue-color);
+}
+
+.logo {
+  background: url(/public/images/crossword-icon-white-512.png) center
+    center/cover no-repeat;
+  width: 3.5rem;
+  height: 3.5rem;
+  position: absolute;
+  top: 20%;
+  left: 2%;
 }
