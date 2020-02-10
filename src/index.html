@@ -3,20 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="manifest" href="/manifest.json" />
+
     <link
       rel="shortcut icon"
       type="image/png"
       href="/public/images/crossword-icon-16.png"
     />
     <title>Crosswords</title>
-    <script src="webcomponents/webcomponents-loader.js"></script>
+
+    <meta name="theme-color" content="#d5d7db" />
+    <meta
+      name="description"
+      content="Generation of random crossword puzzles."
+    />
+
+    <!-- iOS -->
+    <link rel="apple-touch-icon" href="/public/images/crossword-icon-128.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-title" content="Crosswords Playground" />
+
     <script>
       if (!window.customElements) {
         document.write("<!--");
       }
     </script>
-    <script src="webcomponents/custom-elements-es5-adapter.js"></script>
+    <script src="./vendor/custom-elements-es5-adapter.js"></script>
     <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
   </head>
   <body>
@@ -24,6 +38,10 @@
       <h1>Crosswords Playground</h1>
     </header>
 
-    <main></main>
+    <main>
+      <word-view></word-view>
+    </main>
+
+    <script src="./vendor/webcomponents-loader.js"></script>
   </body>
 </html>

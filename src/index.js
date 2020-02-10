@@ -1,3 +1,7 @@
+import "./views/word-view";
+
+import "./styles.css";
+
 console.log("index.js");
 
 window.addEventListener("load", () => {
