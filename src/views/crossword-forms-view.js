@@ -4,14 +4,18 @@ import "@vaadin/vaadin-button";
 import "@vaadin/vaadin-checkbox";
 import "@vaadin/vaadin-radio-button/vaadin-radio-button";
 import "@vaadin/vaadin-radio-button/vaadin-radio-group";
+import { connect } from "pwa-helpers";
 
-const PropsVisibilityFilters = {
-  SHOW_ALL: "All",
-  SHOW_MAIN: "Main",
-  SHOW_STATS: "Stats"
-};
+import { VisualInfoOptions } from "../redux/reducer";
+import { store } from "../redux/store";
+import {
+  addWord,
+  removeWord,
+  updateFilter,
+  generateCrossword
+} from "../redux/actions";
 
-class CrosswordFormsView extends LitElement {
+class CrosswordFormsView extends connect(store)(LitElement) {
   static get properties() {
     return {
       words: { type: Array },
@@ -20,10 +24,15 @@ class CrosswordFormsView extends LitElement {
     };
   }
 
+  stateChanged(state) {
+    this.words = state.words;
+    this.filter = state.filter;
+  }
+
   constructor() {
     super();
     this.words = [];
-    this.filter = PropsVisibilityFilters.SHOW_ALL;
+    this.filter = VisualInfoOptions.SHOW_ALL;
     this.text = "";
   }
 
@@ -50,7 +59,7 @@ class CrosswordFormsView extends LitElement {
         ${this.words.map(
           word => html`
             <div class="word-item">
-              <span @click="${this.removeWord}">${word.text}</span>
+              <span>${word.text}</span>
             </div>
           `
         )}
@@ -61,7 +70,7 @@ class CrosswordFormsView extends LitElement {
         value="${this.filter}"
         @value-changed="${this.filterChanged}"
       >
-        ${Object.values(PropsVisibilityFilters).map(
+        ${Object.values(VisualInfoOptions).map(
           filter => html`
             <vaadin-radio-button value="${filter}"
               >${filter}</vaadin-radio-button
@@ -76,15 +85,18 @@ class CrosswordFormsView extends LitElement {
   }
 
   generateCrossword(e) {
-    console.log(e.target);
+    store.dispatch(generateCrossword(this.words));
   }
 
   filterChanged(e) {
-    this.filter = e.target.value;
+    const val = e.target.value;
+
+    store.dispatch(updateFilter(val));
+    this.filter = val;
   }
 
   removeWord(e) {
-    this.words = [...this.words.filter(word => word.text === e.target.value)];
+    store.dispatch(removeWord(e.target.value));
   }
 
   shortcutListener(e) {
@@ -98,14 +110,9 @@ class CrosswordFormsView extends LitElement {
   }
 
   addWord(e) {
-    console.log(e);
+    console.log();
     if (this.text) {
-      this.words = [
-        ...this.words,
-        {
-          text: this.text
-        }
-      ];
+      store.dispatch(addWord(this.text));
       this.text = "";
     }
   }
