@@ -13,53 +13,98 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
   static get properties() {
     return {
       words: { type: Array },
-      matrixSize: { type: Number }
+      matrixSize: { type: Number },
+      crosswordData: { type: Array }
     };
   }
 
   constructor() {
     super();
     this.words = [];
-    this.matrixSize = 30;
+    this.matrixSize = 20;
+    this.crosswordData = [];
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.renderGrid();
   }
 
   render() {
     return html`
       <style>
-        h2 {
-          color: var(--primary);
+        .crossword-puzzle-wrapper {
+          width: 40rem;
+          height: 40rem;
+          background: var(--grey-background);
+          padding: 1rem;
+          margin: 2rem;
+          float: right;
         }
 
         .crossword-puzzle {
-          border: 1px solid purple;
+          display: flex;
+          flex-direction: column;
+          background: #1676f3;
+          height: 100%;
+        }
+
+        .crossword-row {
+          display: flex;
+          flex: 1;
         }
 
         .crossword-box {
-          display: inline-block;
-          font-size: 1.6rem;
-          width: 1.6rem;
-          height: 1.6rem;
-          line-height: 1.6rem;
-          border: 1px solid var(--dark-color);
+          flex: 1;
           margin: 0.1rem;
           text-align: center;
+          background-color: #fff;
         }
       </style>
-      <h2 @click="${() => this.createBoxAndAppendIt("A")}">Crossword Puzzle</h2>
-      <div class="crossword-puzzle"></div>
+      <div class="crossword-puzzle-wrapper">
+        <div class="crossword-puzzle"></div>
+      </div>
     `;
   }
 
-  createBoxAndAppendIt(char) {
-    for (let i = 0; i < 30; i++) {
+  renderBoxes(selector) {
+    for (let i = 0; i < this.matrixSize; i++) {
       const crosswordBox = document.createElement("div");
-      crosswordBox.className = "crossword-box";
-      crosswordBox.textContent = char;
+      crosswordBox.className = `crossword-box col-${i}`;
+
+      this.shadowRoot.querySelector(selector).appendChild(crosswordBox);
+    }
+  }
+
+  renderRows() {
+    for (let i = 0; i < this.matrixSize; i++) {
+      const crosswordRow = document.createElement("div");
+      crosswordRow.className = `crossword-row row-${i}`;
 
       this.shadowRoot
         .querySelector(".crossword-puzzle")
-        .appendChild(crosswordBox);
+        .appendChild(crosswordRow);
+
+      this.renderBoxes(`.crossword-row.row-${i}`);
     }
+  }
+
+  renderGrid() {
+    this.renderRows;
+  }
+
+  renderWord(str) {
+    // Splitting the input word and create boxes for all chars
+    str.split("").forEach(char => console.log(char));
+
+    const crosswordBox = document.createElement("div");
+    crosswordBox.className = "crossword-box";
+    crosswordBox.textContent = char;
+
+    this.shadowRoot
+      .querySelector(".crossword-puzzle")
+      .appendChild(crosswordBox);
   }
 
   generateCrossword(e) {

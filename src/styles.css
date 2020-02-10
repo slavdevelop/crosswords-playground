@@ -8,7 +8,9 @@ html {
   --shade-color: #606368;
   --success-color: #18802a;
   --warning-color: #b15824;
-  --light-color: #d5d7db;
+  --blue-color: #1676f3;
+  --light-background: #d5d7db;
+  --grey-background: #1a39601a;
 
   --spacing: 16px;
 
@@ -50,6 +52,30 @@ nav {
 }
 
 header {
+  text-align: center;
   background: var(--dark-color);
   color: var(--base-color);
+}
+
+header > h1 {
+  height: 5rem;
+  line-height: 5rem;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+main > crossword-forms-view {
+  flex: 1;
+}
+
+main > crossword-puzzle-view {
+  flex: 2;
+}
+
+.heading-primary {
+  color: var(--blue-color);
 }

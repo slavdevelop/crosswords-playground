@@ -41,18 +41,38 @@ class CrosswordFormsView extends connect(store)(LitElement) {
     return html`
       <style>
         h2 {
-          color: var(--primary);
+          color: var(--dark-color);
+        }
+
+        .input-layout {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .input-layout vaadin-text-field {
+          width: 60%;
+        }
+
+        .input-layout vaadin-button {
+          width: 35%;
+        }
+
+        .words-list {
+          min-height: 3rem;
+          background-color: var(--grey-background);
+          padding: 1rem;
+          margin: 1rem 0;
         }
       </style>
-      <h2>Crossword Forms</h2>
+      <h3>Current word selection</h3>
       <div class="input-layout" @keyup="${this.shortcutListener}">
         <vaadin-text-field
-          placeholder="Text"
+          placeholder="Something"
           value="${this.text}"
           @change="${this.updateText}"
         ></vaadin-text-field>
         <vaadin-button theme="primary" @click="${this.addWord}">
-          Add Word
+          Add
         </vaadin-button>
       </div>
 
@@ -66,22 +86,27 @@ class CrosswordFormsView extends connect(store)(LitElement) {
         )}
       </div>
 
-      <vaadin-radio-group
-        class="visibility-filters"
-        value="${this.filter}"
-        @value-changed="${this.filterChanged}"
-      >
-        ${Object.values(VisualInfoOptions).map(
-          filter => html`
-            <vaadin-radio-button value="${filter}"
-              >${filter}</vaadin-radio-button
-            >
-          `
-        )}
-      </vaadin-radio-group>
-      <vaadin-button @click="${this.generateCrossword}">
-        Generate Crossword
-      </vaadin-button>
+      <div class="radio-buttons">
+        <vaadin-radio-group
+          class="visibility-filters"
+          value="${this.filter}"
+          @value-changed="${this.filterChanged}"
+        >
+          ${Object.values(VisualInfoOptions).map(
+            filter => html`
+              <vaadin-radio-button value="${filter}"
+                >${filter}</vaadin-radio-button
+              >
+            `
+          )}
+        </vaadin-radio-group>
+      </div>
+
+      <div class="generate-button">
+        <vaadin-button @click="${this.generateCrossword}">
+          Generate Crossword
+        </vaadin-button>
+      </div>
     `;
   }
 
