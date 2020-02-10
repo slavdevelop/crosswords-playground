@@ -34,6 +34,7 @@ class CrosswordFormsView extends connect(store)(LitElement) {
     this.words = [];
     this.filter = VisualInfoOptions.SHOW_ALL;
     this.text = "";
+    this.enrichedWords = [];
   }
 
   render() {
@@ -86,6 +87,26 @@ class CrosswordFormsView extends connect(store)(LitElement) {
 
   generateCrossword(e) {
     store.dispatch(generateCrossword(this.words));
+
+    // tests with fake data
+
+    const matrixSize = 30;
+    const demoPlayground = [...Array(matrixSize)].map((x, j) => {
+      return Array(matrixSize).fill(0);
+    });
+    console.log(demoPlayground);
+
+    this.enrichedWords = store.getState().enrichedWords;
+    const fakeData = this.enrichedWords.map(ew => {
+      return {
+        ...ew,
+        startX: 3,
+        startY: 3,
+        direction: "right"
+      };
+    });
+    demoPlayground[10][10] = 1;
+    console.log(fakeData);
   }
 
   filterChanged(e) {

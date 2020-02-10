@@ -27,7 +27,7 @@ export const reducer = (state = INITIAL_STATE, action) => {
     case REMOVE_WORD:
       return {
         ...state,
-        words: [...state.words.filter(w => w.text != action.wordText)]
+        words: [...state.words.filter(w => w.text !== action.wordText)]
       };
     case UPDATE_FILTER:
       return {
@@ -37,7 +37,14 @@ export const reducer = (state = INITIAL_STATE, action) => {
     case GENERATE_CROSSWORD:
       return {
         ...state,
-        enrichedWords: action.words
+        enrichedWords: action.words.map(word => {
+          return {
+            id: word.id,
+            text: word.text,
+            charArray: word.text.split(""),
+            length: word.text.length
+          };
+        })
       };
     default:
       return state;
