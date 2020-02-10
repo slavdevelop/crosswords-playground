@@ -23,12 +23,13 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
     this.words = [];
     this.matrixSize = 20;
     this.crosswordData = [];
-  }
 
-  connectedCallback() {
-    super.connectedCallback();
-
-    this.renderGrid();
+    this.shadowRoot.addEventListener("load", () => {
+      setInterval(() => {
+        this.renderGrid();
+        console.log(1);
+      }, 1000);
+    });
   }
 
   render() {
@@ -62,6 +63,7 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
           background-color: #fff;
         }
       </style>
+      <span @click="${() => this.renderGrid()}">Click me!</span>
       <div class="crossword-puzzle-wrapper">
         <div class="crossword-puzzle"></div>
       </div>
@@ -91,7 +93,7 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
   }
 
   renderGrid() {
-    this.renderRows;
+    this.renderRows();
   }
 
   renderWord(str) {
