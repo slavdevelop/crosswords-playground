@@ -92,7 +92,11 @@ class CrosswordFormsView extends connect(store)(LitElement) {
 
     const matrixSize = 30;
     const demoPlayground = [...Array(matrixSize)].map((x, j) => {
-      return Array(matrixSize).fill(0);
+      return Array(matrixSize).fill(html`
+        <div class="crossword-box">
+          A
+        </div>
+      `);
     });
     console.log(demoPlayground);
 
@@ -106,7 +110,6 @@ class CrosswordFormsView extends connect(store)(LitElement) {
       };
     });
     demoPlayground[10][10] = 1;
-    console.log(fakeData);
   }
 
   filterChanged(e) {
