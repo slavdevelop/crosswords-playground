@@ -1,4 +1,4 @@
-import "./views/word-view";
+import "./views/crossword-forms-view";
 
 import "./styles.css";
 
@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function initUI() {
   const element = document.createElement("div");
-  element.textContent = "testing";
+  element.textContent = "";
 
   document.querySelector("main").appendChild(element);
 }
