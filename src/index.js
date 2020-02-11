@@ -3,20 +3,8 @@ import "./views/crossword-puzzle-view";
 
 import "./styles.css";
 
-console.log("index.js");
+import { getPlaygroundInstance } from "./core/helpers";
 
-window.addEventListener("load", () => {
-  console.log("load event");
-  initUI();
-});
+const playground = getPlaygroundInstance(10);
 
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("DOMContentLoaded event");
-});
-
-function initUI() {
-  const element = document.createElement("div");
-  element.textContent = "";
-
-  document.querySelector("main").appendChild(element);
-}
+console.log(playground);

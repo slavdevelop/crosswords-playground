@@ -1,3 +1,5 @@
+import nanoid from "nanoid";
+
 export const getAppropriateStartingPoint = (matrixSize, word) => {
   const startingPoint = parseInt(matrixSize / 2) - parseInt(word.length / 2);
 
@@ -5,7 +7,16 @@ export const getAppropriateStartingPoint = (matrixSize, word) => {
 };
 
 export const getPlaygroundInstance = matrixSize =>
-  [...Array(matrixSize)].map(() => Array(matrixSize).fill());
+  [...Array(matrixSize)].map((element, index) => {
+    const boxArray = [];
+
+    for (let i = 0; i < matrixSize; i++) {
+      const box = { id: nanoid(), row: index, col: i };
+      boxArray.push(box);
+    }
+
+    return boxArray;
+  });
 
 export const isStringLengthValid = (str, xSize) =>
   str.length >= 2 && str.length <= xSize ? true : false;
