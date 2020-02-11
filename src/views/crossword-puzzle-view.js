@@ -15,7 +15,7 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
       words: { type: Array },
       rowNumber: { type: Number },
       colNumber: { type: Number },
-      crosswordData: { type: Object }
+      gridData: { type: Object }
     };
   }
 
@@ -24,7 +24,7 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
     this.words = [];
     this.rowNumber = 20;
     this.colNumber = 20;
-    this.crosswordData = [];
+    this.gridData = [];
   }
 
   connectedCallback() {
@@ -67,18 +67,19 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
       rowCloned.className = `crossword-row row-${row}`;
       rowCloned.setAttribute("id", rowId);
 
-      this.crosswordData[row] = Array(this.rowNumber);
+      this.gridData[row] = Array(this.rowNumber);
 
       for (let col = 0; col < this.colNumber; col++) {
         const colId = nanoid();
         let colCloned = span.cloneNode(true);
-        colCloned.textContent = "S";
         colCloned.className = `crossword-col col-${col}`;
         colCloned.setAttribute("id", colId);
+        colCloned.style =
+          "min-width: 1.5rem; min-height: 1.5rem; background-color: #fff;";
 
         rowCloned.appendChild(colCloned);
 
-        this.crosswordData[row][col] = { id: colId, row: row, col: col };
+        this.gridData[row][col] = { id: colId, row: row, col: col };
       }
 
       crosswordPuzzle.appendChild(rowCloned);
@@ -86,18 +87,11 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
 
     crosswordPuzzleWrapper.appendChild(crosswordPuzzle);
 
+    console.log(this.gridData);
+
     document
       .querySelector("crossword-puzzle-view")
       .shadowRoot.appendChild(crosswordPuzzleWrapper);
-  }
-
-  renderBoxes(selector) {
-    for (let i = 0; i < this.matrixSize; i++) {
-      const crosswordBox = document.createElement("div");
-      crosswordBox.className = `crossword-box col-${i}`;
-
-      this.shadowRoot.querySelector(selector).appendChild(crosswordBox);
-    }
   }
 }
 
