@@ -143,26 +143,10 @@ class CrosswordFormsView extends connect(store)(LitElement) {
   }
 
   generateCrossword(e) {
-    store.dispatch(generateCrossword(this.words));
-
-    // tests with fake data
-
-    const matrixSize = 30;
-    const demoPlayground = [...Array(matrixSize)].map((x, j) => {
-      return Array(matrixSize).fill(0);
-    });
-    console.log(demoPlayground);
-
-    this.enrichedWords = store.getState().enrichedWords;
-    const fakeData = this.enrichedWords.map(ew => {
-      return {
-        ...ew,
-        startX: 3,
-        startY: 3,
-        direction: "right"
-      };
-    });
-    demoPlayground[10][10] = 1;
+    if (this.words.length > 1) {
+      store.dispatch(generateCrossword(this.words));
+      this.words = [];
+    }
   }
 
   filterChanged(e) {
@@ -187,8 +171,7 @@ class CrosswordFormsView extends connect(store)(LitElement) {
   }
 
   addWord(e) {
-    console.log();
-    if (this.text) {
+    if (this.text && this.text.length > 1) {
       store.dispatch(addWord(this.text));
       this.text = "";
     }
