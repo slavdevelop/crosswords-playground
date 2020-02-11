@@ -72,10 +72,17 @@ class CrosswordPuzzleView extends connect(store)(LitElement) {
       for (let col = 0; col < this.colNumber; col++) {
         const colId = nanoid();
         let colCloned = span.cloneNode(true);
+
+        if (row === 5 && col >= 5 && col < 15) {
+          // testing data -> longest word should start at [5,5]
+          const exampleWord = "generation";
+          colCloned.textContent = exampleWord.charAt(col - 5).toUpperCase();
+        } else {
+          colCloned.textContent = ".";
+        }
+
         colCloned.className = `crossword-col col-${col}`;
         colCloned.setAttribute("id", colId);
-        colCloned.style =
-          "min-width: 1.5rem; min-height: 1.5rem; background-color: #fff;";
 
         rowCloned.appendChild(colCloned);
 
