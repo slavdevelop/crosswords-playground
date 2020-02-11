@@ -59,7 +59,7 @@ header {
 }
 
 main {
-  width: 95%;
+  width: 90%;
   margin: auto;
   height: calc(100vh - 6rem - 32px);
   display: flex;
@@ -67,7 +67,7 @@ main {
 }
 
 main > crossword-forms-view {
-  flex: 2;
+  flex: 1;
 }
 
 main > crossword-puzzle-view {
