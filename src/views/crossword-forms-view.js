@@ -31,6 +31,7 @@ class CrosswordFormsView extends connect(store)(LitElement) {
 
   constructor() {
     super();
+
     this.words = [];
     this.filter = VisualInfoOptions.SHOW_ALL;
     this.text = "";
@@ -145,7 +146,6 @@ class CrosswordFormsView extends connect(store)(LitElement) {
   generateCrossword(e) {
     if (this.words.length > 1) {
       store.dispatch(generateCrossword(this.words));
-      this.words = [];
     }
   }
 

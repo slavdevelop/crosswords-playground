@@ -1,8 +1,23 @@
-import { getPlaygroundInstance } from "./helpers";
+export const exampleWorkflow = () => {
+  // Fake testing data
+  const demoWordsArray = [
+    "test",
+    "words",
+    "array",
+    "crossword",
+    "generation",
+    "games",
+    "puzzle",
+    "comparison",
+    "solutions",
+    "use"
+  ];
 
-const playground = getPlaygroundInstance(50);
+  const rows = 20;
+  const cols = 20;
 
-console.log(playground);
-console.log(playground.length);
+  // 1. Sort the words array by length (1st placed will be the longest)
+  const sortedArray = demoWordsArray.sort((a, b) => b.length - a.length);
 
-console.log(playground[0].length);
+  console.log(sortedArray);
+};
